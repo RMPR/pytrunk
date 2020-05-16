@@ -10,6 +10,10 @@ import urllib.parse
 import xml.etree.ElementTree as ET
 
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+
+options = Options()
+options.binary_location = "/usr/bin/chromium-freeworld"
 
 def save_lists():
   with open('lists.json', 'w') as f:
@@ -81,7 +85,7 @@ def follow_tooters():
   with open('setup.json', 'r') as f:
     setup = json.load(f)
     
-  driver = webdriver.Chrome(executable_path=setup['webdriver_location'])   
+  driver = webdriver.Chrome(chrome_options = options, executable_path=setup['webdriver_location'])   
   driver.get(f'{setup["home_domain"]}/auth/sign_in')
   signin = input('type "y" once youve signed in: ')
 
